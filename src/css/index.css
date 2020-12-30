@@ -1,0 +1,71 @@
+body{
+  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  background: #c0c4ad;
+  margin: 30px auto;
+  width: 360px;
+}
+
+form {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px 20px 20px;
+  width: 310px;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+form div + div {
+  margin-top: 1em;
+}
+
+label {
+  display: inline-block;
+  width: 90px;
+  text-align: right;
+}
+
+input, textarea {
+  font: 1em sans-serif;
+  width: 278px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+}
+
+input:focus, textarea:focus {
+  border-color: #000;
+}
+
+textarea {
+  vertical-align: top;
+  height: 5em;
+}
+
+.button {
+  padding-left: 90px;
+}
+
+button {
+  margin-left: .5em;
+}
+
+.login p.submit{
+  text-align: right;
+}
+
+.login p{
+  margin: 20px 0 0;
+}
+
+input[type=submit]{
+  padding: 0 18px;
+  height: 29px;
+  width: 111.49px;
+  font-size: 12px;
+  color: #FFF;
+  background: #e2001a;
+  border: 1px solid;
+  border-radius: 3px;
+  outline: 0;
+  box-sizing: content-box;
+}
