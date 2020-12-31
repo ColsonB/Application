@@ -41,6 +41,10 @@
                     <label>Message de connexion</label>
                 </div>
             </fieldset>
+
+              <input type="text" id="com" name="commentaire">
+                <button>Envoyer</button>
+
     </body>
 
 </html>
