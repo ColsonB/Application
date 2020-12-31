@@ -1,3 +1,12 @@
+<?php
+    try{
+        $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
+    }catch(Exception $e){
+        die('Erreur : ' . $e->getMessage());
+    }
+?>
+
+
 <header class="header">
     <a class="titre" href="">
         <img class="logo" src="src/img/croix-rouge.png" width="25" height="25">
@@ -10,6 +19,9 @@
         <ul class="navbar-gauche">
             <li>
                 <a href="pharmacie.php">Pharmacie</a>
+            </li>
+            <li>
+                <a href="main_courante.php">Main Courante</a>
             </li>
         </ul>
         <ul class="navbar-droite">
@@ -33,13 +45,15 @@
             <div class="dropdown">
                 <button onclick="profilFunction()" class="dropdown-profil-menu">
                     <i class="fas fa-user"></i>
-                    Cauet Clément
+                    <?
+                      
+                    ?>
                     <i class="fas fa-caret-down"></i>
                 </button>
                 <div id="dropdown-profil" class="dropdown-profil">
-                    <a href="#">
+                    <a href="deconnexion.php">
                         <i class="fas fa-sign-out-alt"></i>
-                        <a href="deconnexion.php">Déconnexion</a>
+                        Déconnexion
                     </a>
                 </div>
             </div>
