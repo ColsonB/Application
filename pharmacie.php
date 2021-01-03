@@ -115,7 +115,7 @@
                 $updateProduit=$_POST['updateProduit'];
                 $updateQuantité=$_POST['updateQuantité'];
                 //Requête SQL de la fonction update
-                $req = "UPDATE `fourniture` SET `nomProduit`='$updateProduit', `Quantité`='$updateQuantité' WHERE `id-Fourniture`='$updateId'";
+                $req = "UPDATE `fourniture` SET `nomProduit`='$updateProduit', `Quantité`='$updateQuantité' WHERE `idFourniture`='$updateId'";
                 $RequetStatement = $BDD->query($req);
                 echo "<meta http-equiv='refresh' content='0'>";
             }
@@ -130,7 +130,7 @@
             if(isset($_POST['checkbox'])){
                 foreach($_POST['checkbox'] as $check){
                     //Requête SQL de la fonction delete
-                    $req = "DELETE FROM `fourniture` WHERE `id-Fourniture`= $check";
+                    $req = "DELETE FROM `fourniture` WHERE `idFourniture`= $check";
                     $RequetStatement = $BDD->query($req);
                     echo "<meta http-equiv='refresh' content='0'>";
                 }
