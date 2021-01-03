@@ -1,12 +1,3 @@
-<?php
-    try{
-        $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
-    }catch(Exception $e){
-        die('Erreur : ' . $e->getMessage());
-    }
-?>
-
-
 <header class="header">
     <a class="titre" href="">
         <img class="logo" src="src/img/croix-rouge.png" width="25" height="25">
@@ -45,9 +36,7 @@
             <div class="dropdown">
                 <button onclick="profilFunction()" class="dropdown-profil-menu">
                     <i class="fas fa-user"></i>
-                    <?
-                      
-                    ?>
+                    Clément Cauet
                     <i class="fas fa-caret-down"></i>
                 </button>
                 <div id="dropdown-profil" class="dropdown-profil">

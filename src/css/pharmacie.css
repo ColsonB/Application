@@ -1,6 +1,157 @@
+/*Page pharmacie.php*/
 .back{
     position: relative;
     top: 100px;
     width: 100%;
-    height: 100%;
 }
+
+/*Barre de recherche*/
+.forms-group {
+    position: relative;
+    float: right;
+    margin-right: 10%;
+}
+
+.forms-control {
+    width: 300px;
+    height: 30px;
+}
+
+.btn-primary {
+    width: 30px;
+    height: 30px;
+    color: gray;
+    background-color: white;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+/*Bouttons*/
+.boutton {
+    position: relative;
+    top: 50px;
+    width: 332px;
+    margin-left: 10%;
+}
+
+/*Ajouter*/
+.create {
+    width: 80px;
+    height: 30px;
+    color: white;
+    background-color: #008000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+.form-create {
+    position: relative;
+    width: 535px;
+    top: 65px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-create input {
+    width: 200px;
+    height: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+.form-create .ajouter{
+    width: 125px;
+    color: white;
+    background-color: #008000;
+}
+
+/*Modifier*/
+.update {
+    color: white;
+    background-color:#000099;
+    width: 80px;
+    height: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+/*Supprimer*/
+.delete {
+    color: black;
+    background-color: #FEFF18;
+    width: 80px;
+    height: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+/*Annuler*/
+.cancel {
+    color: white;
+    background-color: #CC0000;
+    width: 80px;
+    height: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+/*Tableau*/
+table {
+    table-layout: fixed;
+    position: relative;
+    top: 75px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-collapse: collapse;
+  }
+
+thead td {
+    height: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+tbody td {
+    height: 30px;
+    line-height: center;
+    text-align: center;
+}
+  
+tbody tr:nth-child(odd) {
+    background-color: #F8F9FA;
+}
+
+tbody tr:nth-child(even) {
+    background-color: white;
+}
+
+@media screen and (max-width: 950px) {
+    .forms-group {
+        position: relative;
+        float: none;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .forms-control {
+        position: relative;
+        width: 90%;
+    }
+
+    .boutton {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+  } 

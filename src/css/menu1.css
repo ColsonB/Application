@@ -1,14 +1,15 @@
 ﻿/* Balise pour l'entête du site */
 .header {
-    position: absolute;
+    position: fixed;
     display: block;
     top: 0;
     left: 0;
     width: 100%;
-    height: 51px;
+    height: 56px;
     background-color: #f8f9fa;
-    border-bottom: 1px;
+    border-bottom: 1px solid;
     border-color: #e7e7e7;
+    z-index: 1000;
 }
 
 .titre {
@@ -25,7 +26,7 @@
 }
 
 .inventaire{
-    position: fixed;
+    position: absolute;
     top: 11px;
     left: 45px;
     margin: 0;
@@ -35,7 +36,7 @@
 
 nav .navbar-gauche {
     position: relative;
-    top: -23px;
+    top: -33px;
     left: 150px;
     width: 500px;
     height: 51px;
@@ -55,6 +56,7 @@ nav li {
 nav .navbar-gauche > li {
     display: inline;
     position: relative;
+    top: 8px;
 }
 
 nav .navbar-gauche > li > a {
@@ -190,4 +192,5 @@ nav .navbar-droite > li > a {
 /* CSS du JS */
 .show {
     display: block;
+    top: 56px;
 }

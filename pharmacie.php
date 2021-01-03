@@ -1,14 +1,15 @@
 <?php
-    //unset($_POST);
     try{
+        //Appel de la Base De Donnée (BDD)
         $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
     }catch(Exception $e){
         die('Erreur : ' . $e->getMessage());
     }
 
+    //Fonction select de la page
     function requet_select_pharmacie($BDD){
         try {
-            //Requête select avec une barre de recherche
+            //Requête SQL de la fonction select avec une barre de recherche
             $req = "SELECT * FROM `fourniture`";
             if(isset($_GET['recherche'])){
                 $nomProduit = $_GET['recherche']; 
@@ -19,15 +20,18 @@
                 <!-- Affichage du tableau de donnée -->
                 <form method="post">
                     <table>
-                        <tbody>
+                        <thead>
                             <tr>
-                                <td>id-Fourniture</td>
-                                <td>nomProduit</td>
+                                <td>ID</td>
+                                <td>Produit</td>
                                 <td>Quantité</td>
                             </tr>
+                        </thead>
+                        <tbody>
                             <?php while($Tab=$RequetStatement->fetch()){ ?>
                             <tr>
                                 <?php
+                                    //Si on appuie sur le bouton Modifier, on créé un champ pour pouvoir modifier les données
                                     if(isset($_POST['modifier'])){
                                         foreach($_POST['radio'] as $radio){
                                             if(isset($_POST['radio']) && $Tab[0]==$radio){
@@ -46,43 +50,55 @@
                                         echo "<td>".$Tab[1]."</td>";
                                         echo "<td>".$Tab[2]."</td>";
                                     }
+                                    //Si on appuie sur le bouton Supprimer, on créé des radio et boutton Modifier pour selectionner les données à modifier
                                     if(isset($_POST['update'])){
-                                        echo "<td><input type='radio' name='radio[]' value=".$Tab[0]."></td>";
-                                        echo "<td><input type='submit' name='modifier' value='Modifier'></td>";
+                                        ?>
+                                        <td><input type='radio' name='radio[]' value=".$Tab[0]."> <input type='submit' name='modifier' class="update" value='Modifier'></td>
+                                        <?php
                                     }
+                                    //Si on appuie sur le bouton Supprimer, on créé des checkbox pour selectionner les données à supprimer
                                     if(isset($_POST['delete'])){
-                                ?>
-                                <td><input type="checkbox" name="checkbox[]" value="<?php echo $Tab[0] ?>"></td>
-                                <?php
+                                        echo '<td><input type="checkbox" name="checkbox[]" value="<?php echo $Tab[0] ?>"></td>';
                                     }
                                 ?>
                             </tr>
                             <?php
                                 }
                             ?>
+                            <?php
+                                //Si on appuie sur le bouton Supprimer les éléments, on supprime toutes les données cochées par les checkbox
+                                if(isset($_POST['delete'])){
+                            ?>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td><input type="submit" name="deleteAll" class="delete" value="Supprimer"></td>
+                                </tr>
+                            <?php
+                                }
+                            ?>
                         </tbody>
                     </table>
-                    <?php
-                        if(isset($_POST['delete'])){
-                        echo'<input type="submit" name="deleteAll" value="Supprimer les éléments">';
-                        }
-                    ?>
                 </form>
             <?php
+                //Appel de la fonction update (Modifier)
+                requet_update_pharmacie($BDD);
+                //Appel de la fonction delete (Supprimer)
                 requet_delete_pharmacie($BDD);
         }catch(Exception $e){
             die('Erreur : ' . $e->getMessage());
         }
     }
     
+    //Fonction insert de la page
     function requet_insert_pharmacie($BDD){
         try{
             if(isset($_POST['FournitureSubmit'])){
                 if(isset($_POST['NomProduit']) && isset($_POST['Quantité'])){
                     $NomProduit = $_POST['NomProduit'];
                     $Quantité = $_POST['Quantité'];
-                    $marequete = "INSERT INTO `Fourniture`( `NomProduit`, `Quantité`) VALUES ('".$NomProduit."','".$Quantité."')";
-                    $donneeBrute=$BDD->query($marequete);
+                    //Requête SQL de la fonction insert
+                    $req = "INSERT INTO `Fourniture`( `NomProduit`, `Quantité`) VALUES ('".$NomProduit."','".$Quantité."')";
+                    $donneeBrute=$BDD->query($req);
                     echo "<meta http-equiv='refresh' content='0'";
                 }
             }
@@ -91,10 +107,29 @@
         }
     }
 
+    //Fonction update de la page
+    function requet_update_pharmacie($BDD){
+        try{
+            if(isset($_POST['updateModifier'])){
+                $updateId=$_POST['updateId'];
+                $updateProduit=$_POST['updateProduit'];
+                $updateQuantité=$_POST['updateQuantité'];
+                //Requête SQL de la fonction update
+                $req = "UPDATE `fourniture` SET `nomProduit`='$updateProduit', `Quantité`='$updateQuantité' WHERE `id-Fourniture`='$updateId'";
+                $RequetStatement = $BDD->query($req);
+                echo "<meta http-equiv='refresh' content='0'>";
+            }
+        }catch(Exception $e){
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
+
+    //Fonction delete de la page
     function requet_delete_pharmacie($BDD){
         try{
             if(isset($_POST['checkbox'])){
                 foreach($_POST['checkbox'] as $check){
+                    //Requête SQL de la fonction delete
                     $req = "DELETE FROM `fourniture` WHERE `id-Fourniture`= $check";
                     $RequetStatement = $BDD->query($req);
                     echo "<meta http-equiv='refresh' content='0'>";
@@ -105,13 +140,13 @@
         }
     }
 
-    if(isset($_POST['updateModifier'])){
-        $updateId=$_POST['updateId'];
-        $updateProduit=$_POST['updateProduit'];
-        $updateQuantité=$_POST['updateQuantité'];
-        $req = "UPDATE `fourniture` SET `nomProduit`='$updateProduit', `Quantité`='$updateQuantité' WHERE `id-Fourniture`='$updateId'";
-        $RequetStatement = $BDD->query($req);
-        echo "<meta http-equiv='refresh' content='0'>";
+    //fonction annuler de la page
+    function requet_cancel_phermacie(){
+        try{
+            unset($_POST);
+        }catch(Exception $e){
+            die('Erreur : ' . $e->getMessage());
+        }
     }
     
 ?>
@@ -132,33 +167,46 @@
             <form method="get">
                 <div class="forms-group">
                     <input type="text" class="forms-control" name="recherche" placeholder="Rechercher">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
-                <button class="btn btn-primary">Rechercher</button>
             </form>
             <form method="post">
-                <input type="submit" name="create" value="Ajouter">
-                <input type="submit" name="update" value="Modifier">
-                <input type="submit" name="delete" value="Supprimer">
+                <div class="boutton">
+                    <input type="submit" name="create" class="create" value="Ajouter">
+                    <input type="submit" name="update" class="update" value="Modifier">
+                    <input type="submit" name="delete" class="delete" value="Supprimer">
+                    <?php
+                        //Si on appuie sur le bouton Ajouter, Modifier ou Supprimer, on créé un bouton Annuler
+                        if(isset($_POST['create']) || isset($_POST['update']) || isset($_POST['delete'])){
+                            ?><input type='submit' name='cancel' class='cancel' value='Annuler'><?php
+                            if(isset($_POST['cancel'])){
+                                //Appel de fonction cancel (Annuler)
+                                requet_cancel_pharmacie();
+                            }
+                        }
+                    ?>
+                </div>
             </form>
             <?php
+                //Si on appuie sur le bouton Ajouter, on créé un formulaire pour ajouter des données
                 if(isset($_POST['create'])){
             ?>
-            <div>
-                <form method="post" class="form-example">
-                    <label for="NomProduit">Nom du Produit: </label>
-                    <input type="text" name="NomProduit" id="NomProduit" required>
-                    <label for="Quantité">Quantité de Produit: </label>
-                    <input type="text" name="Quantité" id="Quantité" required>
-                    <input type="submit" name="FournitureSubmit" value="Ajouter le Produit">
+            <div class="form-create">
+                <form method="post">
+                    <input type="text" name="NomProduit" id="NomProduit" placeholder="Nom du Produit" required>
+                    <input type="text" name="Quantité" id="Quantité" placeholder="Quantité de Produit" required>
+                    <input type="submit" name="FournitureSubmit" class="ajouter" value="Ajouter le Produit">
                 </form>
+            </div>
             <?php
                 }
+                //Appel de la fonction insert (Ajouter)
                 requet_insert_pharmacie($BDD);
-            ?>
-            <?php
+                //Appel de la fonction select (Afficher)
                 requet_select_pharmacie($BDD);
             ?>
-            </div>
         </div>
     </body>
 </html>

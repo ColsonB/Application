@@ -1,5 +1,36 @@
 <?php
-    include("menu.php")
+
+    session_start();
+
+    try{
+        //Appel de la Base De Donnée (BDD)
+        $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
+    }catch(Exception $e){
+        die('Erreur : ' . $e->getMessage());
+    }
+
+    function requet_select_pharmacie($BDD){
+        try {
+            //Requête SQL de la fonction select
+            $req = "SELECT benevole.Nom, benevole.Prénom, benevole.Nivol, fourniture.nomProduit, fourniture.Quantité FROM `main_courante`, benevole, fourniture
+            WHERE
+                benevole.Nivol = main_courante.numNivol
+            AND
+                main_courante.numFourniture = fourniture.idFourniture";
+            $RequetStatement=$BDD->query($req);
+            ?>
+            <!-- Affichage du tableau de donnée -->
+                <?php while($Tab=$RequetStatement->fetch()){
+                        echo $Tab[0]." ";
+                        echo $Tab[1]." ";
+                        echo $Tab[2];
+                        echo " à modifier : " .$Tab[3];
+                        echo " et il y en a " .$Tab[4];
+                    }
+        }catch(Exception $e){
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
 ?>
 
 <html>
@@ -14,37 +45,17 @@
     </head>
 
     <body>
-            <fieldset>
-                <legend><b>Message</b></legend>
-                <div>
-                    <input type="checkbox">
-                    <label>FLASH</label>
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <label>IMMEDIAT</label>
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <label>URGENT</label>
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <label>ROUTINE</label>
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <label>Message d'information</label>
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <label>Message de connexion</label>
-                </div>
-            </fieldset>
-
-              <input type="text" id="com" name="commentaire">
-                <button>Envoyer</button>
-
+    <?php
+        include("menu.php")
+    ?>
+        <div class="back">
+            <div>
+                <?php
+                    //Appel de la fonction select (Afficher)
+                    requet_select_pharmacie($BDD);
+                ?>
+            </div>
+        </div>    
     </body>
 
 </html>
