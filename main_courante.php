@@ -1,7 +1,6 @@
 <?php
 
     session_start();
-    $_SESSION['username'] = '2015P';
 
     try{
         //Appel de la Base De Donnée (BDD)
@@ -44,7 +43,7 @@
 
     function requet_insert_main_courante($BDD){
         try {
-            $numNivol = $_SESSION['username'];
+            $numNivol = $_SESSION['nivol'];
             $numFourniture = $_SESSION['updateId'];
             $req = "INSERT INTO `main_courante`(`numNivol`, `numFourniture`, `date`) VALUES ('$numNivol','$numFourniture', NOW())";
             $RequetStatement=$BDD->query($req);

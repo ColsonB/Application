@@ -1,3 +1,22 @@
+<?php
+
+    if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+    }
+
+    $nivol = $_SESSION['nivol'];
+
+    try{
+        //Appel de la Base De Donnée (BDD)
+        $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
+    }catch(Exception $e){
+        die('Erreur : ' . $e->getMessage());
+    }
+
+    $req = "SELECT benevole.Nom, benevole.Prénom FROM benevole WHERE Nivol = '$nivol'";
+    $requetStatement=$BDD->query($req);
+?>
+
 <header class="header">
     <a class="titre" href="">
         <img class="logo" src="src/img/croix-rouge.png" width="25" height="25">
@@ -36,7 +55,11 @@
             <div class="dropdown">
                 <button onclick="profilFunction()" class="dropdown-profil-menu">
                     <i class="fas fa-user"></i>
-                    Clément Cauet
+                    <?php
+                        while($Tab=$requetStatement->fetch()){
+                            echo $Tab[1]." ".$Tab[0]." ";
+                        }
+                    ?>
                     <i class="fas fa-caret-down"></i>
                 </button>
                 <div id="dropdown-profil" class="dropdown-profil">

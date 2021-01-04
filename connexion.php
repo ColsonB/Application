@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 if(isset($_POST['log']) && isset($_POST['pass']))
 {
     $db_username = 'root';
@@ -15,6 +16,7 @@ if(isset($_POST['log']) && isset($_POST['pass']))
     
     if($username !== "" && $password !== "")
     {
+        $_SESSION['nivol'] = $_POST['log'];
         $requete = "SELECT count(*) FROM benevole where 
               Nivol = '".$username."' and MDP = '".$password."' ";
         $exec_requete = mysqli_query($db,$requete);
@@ -25,19 +27,9 @@ if(isset($_POST['log']) && isset($_POST['pass']))
            $_SESSION['log'] = $username;
            include("inventaire.php");
         }
-        else
-        {
-            include("index.php"); 
+        else{
+            include("formulaire.php");
         }
     }
-    else
-    {
-        include("index.php"); 
-    }
 }
-else
-{
-    include("index.php");
-}
-
 ?>
