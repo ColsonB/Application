@@ -1,6 +1,7 @@
 <?php
 
     session_start();
+    $_SESSION['username'] = '2015P';
 
     try{
         //Appel de la Base De Donnée (BDD)
@@ -9,32 +10,53 @@
         die('Erreur : ' . $e->getMessage());
     }
 
-    function requet_select_pharmacie($BDD){
+    function requet_select_main_courante($BDD){
         try {
             //Requête SQL de la fonction select
-            $req = "SELECT benevole.Nom, benevole.Prénom, benevole.Nivol, fourniture.nomProduit, fourniture.Quantité FROM `main_courante`, benevole, fourniture
+            $req = "SELECT benevole.Nom, benevole.Prénom, benevole.Nivol, fourniture.idFourniture, fourniture.nomProduit, fourniture.Quantité, main_courante.date FROM `main_courante`, benevole, fourniture
             WHERE
                 benevole.Nivol = main_courante.numNivol
             AND
-                main_courante.numFourniture = fourniture.idFourniture";
+                main_courante.numFourniture = fourniture.idFourniture
+            ORDER BY date DESC";
             $RequetStatement=$BDD->query($req);
             ?>
             <!-- Affichage du tableau de donnée -->
-                <?php while($Tab=$RequetStatement->fetch()){
-                        echo $Tab[0]." ";
-                        echo $Tab[1]." ";
-                        echo $Tab[2];
-                        echo " à modifier : " .$Tab[3];
-                        echo " et il y en a " .$Tab[4];
+                <?php while($Tab=$RequetStatement->fetch()){?>
+                    <div class="block">
+                        <div class="profil">
+                            <?php echo $Tab[0]." ";
+                            echo $Tab[1]." ";
+                            echo "(".$Tab[2]."), ";
+                            echo "le ".$Tab[6];?>
+                        </div>
+                        <div class="commentaire">
+                            <p><?php echo "Modification : ".$Tab[4]." (ID : ".$Tab[3].")";?></p>
+                            <p><?php echo "Quantité restante : " .$Tab[5];?></p>
+                        </div>
+                    </div>
+                    <?php
                     }
+        }catch(Exception $e){
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
+
+    function requet_insert_main_courante($BDD){
+        try {
+            $numNivol = $_SESSION['username'];
+            $numFourniture = $_SESSION['updateId'];
+            $req = "INSERT INTO `main_courante`(`numNivol`, `numFourniture`, `date`) VALUES ('$numNivol','$numFourniture', NOW())";
+            $RequetStatement=$BDD->query($req);
+            echo "<meta http-equiv='refresh' content='0'";
         }catch(Exception $e){
             die('Erreur : ' . $e->getMessage());
         }
     }
 ?>
 
-<html>
-
+<!DOCTYPE html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +74,15 @@
             <div>
                 <?php
                     //Appel de la fonction select (Afficher)
-                    requet_select_pharmacie($BDD);
+                    requet_select_main_courante($BDD);
+                    
+                    if($_SESSION['modifier'] == 1){
+                        //Appel de la insert select (Ajouter)
+                        requet_insert_main_courante($BDD);
+                        $_SESSION['modifier'] = null;
+                    }else{
+                        $_SESSION['modifier'] = null;
+                    }
                 ?>
             </div>
         </div>    

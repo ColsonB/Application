@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     try{
         //Appel de la Base De Donnée (BDD)
         $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
@@ -36,9 +38,9 @@
                                         foreach($_POST['radio'] as $radio){
                                             if(isset($_POST['radio']) && $Tab[0]==$radio){
                                                 echo "<td><input type='hidden' name='updateId' value=".$Tab[0].">".$Tab[0]."</td>";
-                                                echo "<td><input type='text' name='updateProduit' value=".$Tab[1]."></td>";
-                                                echo "<td><input type='text' name='updateQuantité' value=".$Tab[2]."></td>";
-                                                echo "<td><input type='submit' name='updateModifier' value='Modifier'></td>";
+                                                echo "<td><input type='text' name='updateProduit' size='15' value=".$Tab[1]."></td>";
+                                                echo "<td><input type='text' name='updateQuantité' size='3' value=".$Tab[2]."></td>";
+                                                echo "<td><input type='submit' name='updateModifier' class='update' value='Modifier'></td>";
                                             }else{
                                                 echo "<td>".$Tab[0]."</td>";
                                                 echo "<td>".$Tab[1]."</td>";
@@ -52,13 +54,12 @@
                                     }
                                     //Si on appuie sur le bouton Supprimer, on créé des radio et boutton Modifier pour selectionner les données à modifier
                                     if(isset($_POST['update'])){
-                                        ?>
-                                        <td><input type='radio' name='radio[]' value=".$Tab[0]."> <input type='submit' name='modifier' class="update" value='Modifier'></td>
-                                        <?php
+                                        echo "<td><input type='radio' name='radio[]' value=".$Tab[0].">";?>
+                                        <input type='submit' name='modifier' class="update" value='Modifier'></td><?php
                                     }
                                     //Si on appuie sur le bouton Supprimer, on créé des checkbox pour selectionner les données à supprimer
                                     if(isset($_POST['delete'])){
-                                        echo '<td><input type="checkbox" name="checkbox[]" value="<?php echo $Tab[0] ?>"></td>';
+                                        ?><td><input type="checkbox" name="checkbox[]" value="<?php echo $Tab[0] ?>"></td><?php
                                     }
                                 ?>
                             </tr>
@@ -117,6 +118,8 @@
                 //Requête SQL de la fonction update
                 $req = "UPDATE `fourniture` SET `nomProduit`='$updateProduit', `Quantité`='$updateQuantité' WHERE `idFourniture`='$updateId'";
                 $RequetStatement = $BDD->query($req);
+                $_SESSION['updateId'] = $updateId;
+                $_SESSION['modifier'] = 1;
                 echo "<meta http-equiv='refresh' content='0'>";
             }
         }catch(Exception $e){
@@ -150,7 +153,8 @@
     }
     
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -179,7 +183,7 @@
                     <input type="submit" name="delete" class="delete" value="Supprimer">
                     <?php
                         //Si on appuie sur le bouton Ajouter, Modifier ou Supprimer, on créé un bouton Annuler
-                        if(isset($_POST['create']) || isset($_POST['update']) || isset($_POST['delete'])){
+                        if(isset($_POST['create']) || isset($_POST['update']) || isset($_POST['modifier']) || isset($_POST['delete'])){
                             ?><input type='submit' name='cancel' class='cancel' value='Annuler'><?php
                             if(isset($_POST['cancel'])){
                                 //Appel de fonction cancel (Annuler)
