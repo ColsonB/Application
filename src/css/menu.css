@@ -1,93 +1,196 @@
-.menu-transverse {
-    border-bottom: 1px solid #e7e7e7;
-    background-color: #f8f9fa!important;
-    padding: 0;
-    height: 51px;
+﻿/* Balise pour l'entête du site */
+.header {
     position: fixed;
+    display: block;
     top: 0;
-    right: 0;
     left: 0;
-    z-index: 1030;
+    width: 100%;
+    height: 56px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid;
+    border-color: #e7e7e7;
+    z-index: 1000;
 }
 
 .titre {
-    color: grey;
-    margin-left: 10px;
+    margin: 0px 16px 0px 10px;
+    padding: 5px 0px;
+    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: gray;
 }
 
 .logo {
-    font-size: 18px;
+    margin: 13px 5px 0px;
     line-height: 20px;
-    margin-top: 3px;
-    margin-left: 5px;
-    margin-right: 5px;
 }
 
-button.navbar-toggler {
-    margin-right: 10px;
-    color: rgba(0,0,0,.5);
-    border-color: rgba(0,0,0,.1);
+.inventaire{
+    position: absolute;
+    top: 11px;
+    left: 45px;
+    margin: 0;
 }
 
-.navbar-toggler-icon {
-    display: inline-block;
-    width: 1.5em;
-    height: 1.5em;
-    vertical-align: middle;
-    content: "";
-    background: no-repeat 50%;
-    background-size: 100% 100%;
+/* Balise du menu gauche de l'entête */
+
+nav .navbar-gauche {
+    position: relative;
+    top: -33px;
+    left: 150px;
+    width: 500px;
+    height: 51px;
+    margin: 0px;
+    padding: 0px;
 }
 
-.navbar-collapse {
+nav > .navbar-gauche::after {
+    display: block;
+    clear: both;
+}
+
+nav li {
+    list-style-type: none;
+}
+
+nav .navbar-gauche > li {
+    display: inline;
+    position: relative;
+    top: 8px;
+}
+
+nav .navbar-gauche > li > a {
+    color: gray;
+    cursor: pointer;
+    margin: 0px 20px;
+    padding: 15px 0px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+/* Balise du menu droite de l'entête */
+
+nav .navbar-droite {
+    position: relative;
+    top: -89px;
+    height: 51px;
+    float: right;
+    margin: 0;
+    padding: 0px 10px 0px 0px;
+    display: inline;
+}
+
+nav > .navbar-droite::after {
+    display: block;
+    clear: both;
+}
+
+nav li {
+    list-style-type: none;
+}
+
+nav .navbar-droite > li {
+    display: inline;
+    position: relative;
+}
+
+nav .navbar-droite > li > a {
+    color: gray;
     background-color: #f8f9fa;
-    color: rgba(0,0,0,.5);
+    cursor: pointer;
+    top: 20px;
+    padding: 15px 0px;
+    margin: 0px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
+    font-size: 16px;
+    text-decoration: none;
 }
 
-@media (min-width: 768px) {
-    .navbar-nav {
-        flex-direction: row;
-        width: 100%;
-    }
+/* Sous-menu */
 
-    .navbar-collapse {
-        display: flex!important;
-        flex-basis: auto;
-    }
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-ul.navbar-nav {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-a {
-    padding-top: 13px;
-    padding-bottom: 13px;
+/* Sous-menu Aide */
+.dropdown-aid-menu {
+    color: gray;
+    background-color: #f8f9fa;
+    padding: 15px;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
     cursor: pointer;
 }
 
-.img-icon {
-    display: inline-block;
-    font-size: inherit;
-    height: 1em;
-    overflow: visible;
-    vertical-align: -0.125em;
+.dropdown-aid-menu:hover, .dropdown-aid-menu:focus {
+    color: #212529;
 }
 
-.dropdown-menu {
-    margin-top: 0;
+.dropdown-aid {
+    display: none;    
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 200px;
+    left: -105px;
     border-radius: 0 0 .25em .25em;
     border-color: #e7e7e7;
-    max-height: 30vh;
-    overflow-y: auto;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
 }
 
-.navbar-nav .dropdown-menu {
-    position: static;
-    float: none;
+.dropdown-aid a {
+    color: black;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-aid a:hover {background-color: #f1f1f1}
+
+/* Sous-menu Profil */
+
+.dropdown-profil-menu {
+    background-color: #f8f9fa;
+    color: gray;
+    padding: 15px;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-profil-menu:hover, .dropdown-profil-menu:focus {
+    color: #212529;
+}
+
+.dropdown-profil {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 170px;
+    left: 4px;
+    border-radius: 0 0 .25em .25em;
+    border-color: #e7e7e7;
+}
+
+.dropdown-profil a {
+    color: black;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-profil a:hover {
+    background-color: #f1f1f1
+}
+
+/* CSS du JS */
+.show {
+    display: block;
+    top: 56px;
 }

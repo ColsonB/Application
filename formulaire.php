@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accès sécurisé Croix-Rouge française</title>
         <link rel="icon" type="image/png" href="src/img/croix-rouge.png">
-        <link rel='stylesheet' type='text/css' href='src/css/test.css'>
+        <link rel='stylesheet' type='text/css' href='src/css/formulaire.css'>
     </head>
 
     <body>

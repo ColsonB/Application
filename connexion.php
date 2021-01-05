@@ -4,10 +4,10 @@ session_start();
 
 if(isset($_POST['log']) && isset($_POST['pass']))
 {
-    $db_username = 'root';
-    $db_password = '';
+    $db_username = 'Cauet';
+    $db_password = 'Cauet';
     $db_name     = 'tpfinal-cauet-colson';
-    $db_host     = 'localhost';
+    $db_host     = '192.168.64.175';
     $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
            or die('could not connect to database');
     

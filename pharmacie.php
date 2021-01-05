@@ -3,7 +3,7 @@
 
     try{
         //Appel de la Base De Donnée (BDD)
-        $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
+        $BDD=new PDO('mysql:host=192.168.64.175; dbname=tpfinal-cauet-colson; charset=utf8','Cauet','Cauet');
     }catch(Exception $e){
         die('Erreur : ' . $e->getMessage());
     }
@@ -158,7 +158,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel='stylesheet' type='text/css' href='src/css/menu1.css'>
+        <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/pharmacie.css'>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
         <script type="text/javascript" src="src/js/menu.js"></script>

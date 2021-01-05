@@ -8,7 +8,7 @@
 
     try{
         //Appel de la Base De Donnée (BDD)
-        $BDD=new PDO('mysql:host=localhost; dbname=tpfinal-cauet-colson; charset=utf8','root','');
+        $BDD=new PDO('mysql:host=192.168.64.175; dbname=tpfinal-cauet-colson; charset=utf8','Cauet','Cauet');
     }catch(Exception $e){
         die('Erreur : ' . $e->getMessage());
     }
@@ -18,7 +18,7 @@
 ?>
 
 <header class="header">
-    <a class="titre" href="">
+    <a class="titre" href="inventaire.php">
         <img class="logo" src="src/img/croix-rouge.png" width="25" height="25">
         <p class="inventaire">Inventaire</p>
     </a>
