@@ -2,34 +2,35 @@
 
 session_start();
 
-if(isset($_POST['log']) && isset($_POST['pass']))
-{
-    $db_username = 'Cauet';
-    $db_password = 'Cauet';
-    $db_name     = 'tpfinal-cauet-colson';
-    $db_host     = '192.168.64.175';
-    $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
-           or die('could not connect to database');
+try{
+    //Appel de la Base De Donnée (BDD)
+    $BDD=new PDO('mysql:host=192.168.64.175; dbname=tpfinal-cauet-colson; charset=utf8','Cauet','Cauet');
+}catch(Exception $e){
+    die('Erreur : ' . $e->getMessage());
+}
+
+/* Si on a replie le formulaire avec le login et le mdp on envoie une requete à la bdd
+    pour tester si le user existe */
+if(isset($_POST['log']) && isset($_POST['pass'])){
+    $username = $_POST['log'];
+    $password = $_POST['pass'];
+    $_SESSION['nivol'] = $_POST['log'];
     
-    $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['log'])); 
-    $password = mysqli_real_escape_string($db,htmlspecialchars($_POST['pass']));
-    
-    if($username !== "" && $password !== "")
+    $req = "SELECT count(*) FROM benevole where 
+            Nivol = '".$username."' and MDP = '".$password."' ";
+    $RequetStatement=$BDD->query($req);
+    $count=$RequetStatement->fetchColumn();
+
+    /* Si il existe un user avec un login et un mdp correct alors il va sur la page "inventaire.php"
+        sinon il reste sur la page de "formulaire.php" */
+    $_SESSION['count'] = $count;
+    if($count!=0)
     {
-        $_SESSION['nivol'] = $_POST['log'];
-        $requete = "SELECT count(*) FROM benevole where 
-              Nivol = '".$username."' and MDP = '".$password."' ";
-        $exec_requete = mysqli_query($db,$requete);
-        $reponse      = mysqli_fetch_array($exec_requete);
-        $count = $reponse['count(*)'];
-        if($count!=0)
-        {
-           $_SESSION['log'] = $username;
-           include("inventaire.php");
-        }
-        else{
-            include("formulaire.php");
-        }
+        $_SESSION['log'] = $username;
+        include("inventaire.php");
+    }
+    else{
+        include("formulaire.php");
     }
 }
 ?>

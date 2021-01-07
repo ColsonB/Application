@@ -17,7 +17,8 @@
                 benevole.Nivol = main_courante.numNivol
             AND
                 main_courante.numFourniture = fourniture.idFourniture
-            ORDER BY date DESC";
+            ORDER BY 
+                idModification DESC";
             $RequetStatement=$BDD->query($req);
             ?>
             <!-- Affichage du tableau de donnée -->
@@ -59,12 +60,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Main Courante Croix-Rouge française</title>
+        <link rel="icon" type="image/png" href="src/img/croix-rouge.png">
         <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/main_courante.css'>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
         <script type="text/javascript" src="src/js/menu.js"></script>
     </head>
-
     <body>
     <?php
         include("menu.php")
@@ -75,16 +77,17 @@
                     //Appel de la fonction select (Afficher)
                     requet_select_main_courante($BDD);
                     
-                    if($_SESSION['modifier'] == 1){
-                        //Appel de la insert select (Ajouter)
-                        requet_insert_main_courante($BDD);
-                        $_SESSION['modifier'] = null;
-                    }else{
-                        $_SESSION['modifier'] = null;
+                    if(isset($_SESSION['modifier'])){
+                        if($_SESSION['modifier'] == 1){
+                            //Appel de la insert select (Ajouter)
+                            requet_insert_main_courante($BDD);
+                            $_SESSION['modifier'] = null;
+                        }else{
+                            $_SESSION['modifier'] = null;
+                        }
                     }
                 ?>
             </div>
         </div>    
     </body>
-
 </html>
