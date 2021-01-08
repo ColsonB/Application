@@ -11,7 +11,7 @@
 
     function requet_select_main_courante($BDD){
         try {
-            //Requête SQL de la fonction select
+            //Requête SQL de la fonction select, besoin de la variable $BDD qui contient l'objet PDO pour ce connecter à la BDD
             $req = "SELECT benevole.Nom, benevole.Prénom, benevole.Nivol, fourniture.idFourniture, fourniture.nomProduit, fourniture.Quantité, main_courante.date FROM `main_courante`, benevole, fourniture
             WHERE
                 benevole.Nivol = main_courante.numNivol

@@ -13,6 +13,7 @@
         die('Erreur : ' . $e->getMessage());
     }
 
+    //Requête SQL pour afficher le profil de l'utilisatieur dans la barre de menu
     $req = "SELECT benevole.Nom, benevole.Prénom FROM benevole WHERE Nivol = '$nivol'";
     $requetStatement=$BDD->query($req);
 ?>
@@ -43,7 +44,7 @@
                     <i class="fas fa-caret-down"></i>
                 </button>
                 <div id="dropdown-profil" class="dropdown-profil">
-                    <a href="index.php">
+                    <a href="deconnexion.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Déconnexion
                     </a>

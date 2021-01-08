@@ -14,7 +14,7 @@ try{
 if(isset($_POST['log']) && isset($_POST['pass'])){
     $username = $_POST['log'];
     $password = $_POST['pass'];
-    $_SESSION['nivol'] = $_POST['log'];
+    $_SESSION['nivol'] = $username;
     
     $req = "SELECT count(*) FROM benevole where 
             Nivol = '".$username."' and MDP = '".$password."' ";
@@ -32,5 +32,7 @@ if(isset($_POST['log']) && isset($_POST['pass'])){
     else{
         include("formulaire.php");
     }
+}else{
+    include("formulaire.php");
 }
 ?>

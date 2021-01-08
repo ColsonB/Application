@@ -8,7 +8,7 @@
         die('Erreur : ' . $e->getMessage());
     }
 
-    //Fonction select de la page
+    //Fonction select de la page, besoin de la variable $BDD qui contient l'objet PDO pour ce connecter à la BDD
     function requet_select_pharmacie($BDD){
         try {
             //Requête SQL de la fonction select avec une barre de recherche
@@ -88,7 +88,7 @@
         }
     }
     
-    //Fonction insert de la page
+    //Fonction insert de la page, besoin de la variable $BDD qui contient l'objet PDO pour ce connecter à la BDD
     function requet_insert_pharmacie($BDD){
         try{
             if(isset($_POST['FournitureSubmit'])){
@@ -96,7 +96,7 @@
                     $NomProduit = $_POST['NomProduit'];
                     $Quantité = $_POST['Quantité'];
                     //Requête SQL de la fonction insert
-                    $req = "INSERT INTO `Fourniture`( `NomProduit`, `Quantité`) VALUES ('".$NomProduit."','".$Quantité."')";
+                    $req = "INSERT INTO `fourniture`( `NomProduit`, `Quantité`) VALUES ('".$NomProduit."','".$Quantité."')";
                     $donneeBrute=$BDD->query($req);
                     echo "<meta http-equiv='refresh' content='0'";
                 }
@@ -106,7 +106,7 @@
         }
     }
 
-    //Fonction update de la page
+    //Fonction update de la page, besoin de la variable $BDD qui contient l'objet PDO pour ce connecter à la BDD
     function requet_update_pharmacie($BDD){
         try{
             if(isset($_POST['updateModifier'])){
@@ -125,12 +125,14 @@
         }
     }
 
-    //Fonction delete de la page
+    //Fonction delete de la page, besoin de la variable $BDD qui contient l'objet PDO pour ce connecter à la BDD
     function requet_delete_pharmacie($BDD){
         try{
             if(isset($_POST['checkbox'])){
                 foreach($_POST['checkbox'] as $check){
                     //Requête SQL de la fonction delete
+                    $req = "DELETE FROM `main_courante` WHERE `numFourniture`= $check";
+                    $RequetStatement = $BDD->query($req);
                     $req = "DELETE FROM `fourniture` WHERE `idFourniture`= $check";
                     $RequetStatement = $BDD->query($req);
                     echo "<meta http-equiv='refresh' content='0'>";
